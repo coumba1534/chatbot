@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'chatbot',
     'corsheaders',
+    'channels',
 ]
 
 MIDDLEWARE = [
