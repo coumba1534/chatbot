@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historique des sessions</title>
+    <!-- Lien vers le CSS de Bootstrap (si utilisé) -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Style global */
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        /* Conteneur principal */
+        .container {
+            max-width: 900px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        /* Style des cartes pour chaque session */
+        .chat-session-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            margin-bottom: 15px;
+            background: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: #333;
+        }
+
+        .chat-session-card:hover {
+            background-color: #f0f8ff; /* Bleu clair doux */
+            border-color: #007bff; /* Bordure plus vive */
+            text-decoration: none;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .chat-session-card h5 {
+            margin: 0;
+            font-weight: 600;
+            font-size: 1.2em;
+            color: #333;
+        }
+
+        .chat-session-card small {
+            color: #888;
+        }
+
+        /* Style du titre principal */
+        h1 {
+            font-weight: 600;
+            color: #444;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: #007bff;
+        }
+
+        .navbar-brand {
+            color: #fff !important;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <!-- Barre de navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="#">Mon Application</a>
+    </nav>
+
+    <!-- Contenu principal -->
+    <div class="container mt-5">
+        <h1>Vos sessions de chat</h1>
+        <div class="list-group mt-4">
+            {% if historique %}
+                {% for session in historique %}
+                    <a href="{% url 'afficher_detail_session' session.id %}" class="chat-session-card">
+                        <div>
+                            <h5>{{ session.titre }}</h5>
+                            <small>Créée le {{ session.date|date:"d/m/Y H:i" }}</small>
+                        </div>
+                        <div>
+                            <!-- Optionnel : une icône ou bouton -->
+                            <span class="btn btn-sm btn-outline-primary">Voir</span>
+                        </div>
+                    </a>
+                {% endfor %}
+            {% else %}
+                <p class="text-center text-muted">Vous n'avez aucune session enregistrée.</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

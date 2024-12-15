@@ -1,0 +1,371 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Créer un compte</title>
+    <link rel="stylesheet" href="{% static 'css/register.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.0.24/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="form-wrapper">
+            <h1>Inscription </h1>
+
+            <!-- Messages de succès ou d'erreur -->
+            {% if messages %}
+                <div class="messages">
+                    {% for message in messages %}
+                        <div class="message {{ message.tags }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <form method="post">
+                {% csrf_token %}
+                
+                <!-- Prénom -->
+                <div class="input-group">
+                    <label for="first_name">Prénom</label>
+                    {{ form.first_name }}
+                    {% if form.first_name.errors %}
+                        <div class="error">
+                            {% for error in form.first_name.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- Nom -->
+                <div class="input-group">
+                    <label for="last_name">Nom</label>
+                    {{ form.last_name }}
+                    {% if form.last_name.errors %}
+                        <div class="error">
+                            {% for error in form.last_name.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- Email -->
+                <div class="input-group">
+                    <label for="email">Email</label>
+                    {{ form.email }}
+                    {% if form.email.errors %}
+                        <div class="error">
+                            {% for error in form.email.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- Mot de passe -->
+                <div class="input-group">
+                    <label for="password1">Mot de passe</label>
+                    {{ form.password1 }}
+                    {% if form.password1.errors %}
+                        <div class="error">
+                            {% for error in form.password1.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- Confirmation mot de passe -->
+                <div class="input-group">
+                    <label for="password2">Confirmer mot de passe</label>
+                    {{ form.password2 }}
+                    {% if form.password2.errors %}
+                        <div class="error">
+                            {% for error in form.password2.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- Bouton -->
+                <button type="submit" class="btn">Créer un compte</button>
+            </form>
+
+            <p class="signin-text">Vous avez déjà un compte ? <a href="{% url 'login' %}">Connectez-vous !</a></p>
+        </div>
+    </div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+{% load widget_tweaks %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Créer un compte</title>
+    <link href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+</head>
+<body class="bg-gray-100">
+    <main class="flex items-center justify-center min-h-screen px-6 py-12">
+        <section class="w-full max-w-lg space-y-8">
+            <div class="text-center">
+                <h2 class="text-3xl font-extrabold text-gray-900">Créer votre compte</h2>
+            </div>
+
+            <!-- Affichage des messages de succès ou d'erreur -->
+            <!-- {% if messages %}
+                <div class="space-y-4">
+                    {% for message in messages %}
+                        <div class="message {{ message.tags }} bg-indigo-600 text-white p-4 rounded-md">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <form method="post" class="max-w-lg mx-auto space-y-4">
+                {% csrf_token %} -->
+                
+                <!-- Affiche les erreurs générales du formulaire -->
+                <!-- {% if form.non_field_errors %}
+                    <div class="error bg-red-100 text-red-600 p-4 rounded-md">
+                        <ul>
+                            {% for error in form.non_field_errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %} -->
+
+                <!-- Champs Prénom -->
+                <!-- <div>
+                    <label for="first_name" class="block text-sm font-medium text-gray-700">Prénom</label>
+                    <div class="mt-2">
+                        {{ form.first_name|add_class:"block w-full px-1 py-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" }}
+                    </div>
+                    {% if form.first_name.errors %}
+                        <div class="error bg-red-100 text-red-600 p-2 mt-1 rounded-md">
+                            {% for error in form.first_name.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div> -->
+
+                <!-- Champs Nom -->
+                <!-- <div>
+                    <label for="last_name" class="block text-sm font-medium text-gray-700">Nom</label>
+                    <div class="mt-2">
+                        {{ form.last_name|add_class:"block w-full px-1 py-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" }}
+                    </div>
+                    {% if form.last_name.errors %}
+                        <div class="error bg-red-100 text-red-600 p-2 mt-1 rounded-md">
+                            {% for error in form.last_name.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div> -->
+
+                <!-- Champs Email -->
+                <!-- <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                    <div class="mt-2">
+                    {{ form.email|add_class:"block w-full px-1 py-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" }}
+                    </div>
+                    {% if form.email.errors %}
+                        <div class="error bg-red-100 text-red-600 p-2 mt-1 rounded-md">
+                            {% for error in form.email.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div> -->
+
+                <!-- Champs Mot de passe -->
+                <!-- <div>
+                    <label for="password" class="block text-sm font-medium text-gray-700">Mot de passe</label>
+                    <div class="mt-2">
+                    {{ form.password1|add_class:"block w-full px-1 py-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" }}
+                    </div>
+                    {% if form.password1.errors %}
+                        <div class="error bg-red-100 text-red-600 p-2 mt-1 rounded-md">
+                            {% for error in form.password1.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div> -->
+
+                <!-- Champs Confirmation mot de passe -->
+                <!-- <div class="mb-2">
+                    <label for="password2" class="block text-sm font-medium text-gray-700">Confirmer mot de passe</label>
+                    <div class="mt-2">
+                    {{ form.password2|add_class:"block w-full px-1 py-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" }}
+                    </div>
+                    {% if form.password2.errors %}
+                        <div class="error bg-red-100 text-red-600 p-2 mt-1 rounded-md">
+                            {% for error in form.password2.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div> -->
+
+                <!-- Bouton de soumission -->
+                <!-- <div class="mt-4">
+                        <button type="submit" class="w-full bg-indigo-600 text-white py-1 px-1 rounded-md hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2">
+                            Créer un compte
+                        </button>
+                </div>
+            </form>
+            <style>
+                form .block {
+                    width: 10cm; /* Définit la largeur des champs à 11 cm */
+                }
+                form button {
+                    width: 10cm !important; /* Définit la largeur du bouton à 10 cm */
+    }
+            </style>
+
+            <p class="mt-4 text-center text-sm text-gray-500">
+                Vous avez déjà un compte ? 
+                <a href="{% url 'login' %}" class="font-semibold text-indigo-600 hover:text-indigo-500">Connectez-vous !</a>
+            </p>
+        </section>
+    </main>
+    <script src="{% static 'js/register.js' %}"></script>
+</body>
+</html> --> 
+
+
+
+
+
+
+
+
+
+<!-- {% load static %}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Créer un compte</title>
+    <link rel="stylesheet" href="{% static 'css/register.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.0.24/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body>
+    <main>
+        <section class="signup">
+            <h1>Créer votre compte</h1>
+
+            <!-- Affichage des messages de succès ou d'erreur -->
+            <!--{% if messages %}
+                <div class="messages">
+                    {% for message in messages %}
+                        <div class="message {{ message.tags }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <form method="post">
+                {% csrf_token %}
+                
+                <!-- Affiche les erreurs générales du formulaire -->
+               <!-- {% if form.non_field_errors %}
+                    <div class="error">
+                        <ul>
+                            {% for error in form.non_field_errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+            
+                <!-- Affichage des erreurs spécifiques des champs -->
+                <!--<label for="first_name">Prénom</label>
+                {{ form.first_name }}  <!-- Champ Prénom -->
+                <!-- {% if form.first_name.errors %}
+                    <div class="error">
+                        {% for error in form.first_name.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            
+                <label for="last_name">Nom</label>
+                {{ form.last_name }}  Champ Nom -->
+                <!-- {% if form.last_name.errors %}
+                    <div class="error">
+                        {% for error in form.last_name.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            
+                <label for="email">Email</label>
+                {{ form.email }}  Champ Email -->
+                <!-- {% if form.email.errors %}
+                    <div class="error">
+                        {% for error in form.email.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            
+                <label for="password">Mot de passe</label>
+                {{ form.password1 }}  Champ Mot de passe -->
+                <!-- {% if form.password1.errors %}
+                    <div class="error">
+                        {% for error in form.password1.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            
+                <label for="password">Confirmer mot de passe</label>
+                {{ form.password2 }}  Champ Confirmation Mot de passe -->
+                <!-- {% if form.password2.errors %}
+                    <div class="error">
+                        {% for error in form.password2.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            
+                <button type="submit">Créer un compte</button>
+            </form>
+            <p>Vous avez déjà un compte ? <a href="{% url 'login' %}">Connectez-vous !</a></p>
+        </section>
+    </main>
+    <script src="{% static 'js/register.js' %}"></script>
+</body>
+</html> --> 

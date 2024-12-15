@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détails de la session</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Custom Styles -->
+    <style>
+        /* Style global */
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: #343a40;
+        }
+        .navbar-brand, .nav-link {
+            color: #fff !important;
+        }
+
+        /* Conteneur principal */
+        .container {
+            max-width: 800px;
+            margin: auto;
+            margin-top: 20px;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            text-align: center;
+            color: #444;
+        }
+
+        .session-info {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #777;
+            margin-bottom: 20px;
+        }
+
+        /* Messages */
+        .message {
+            display: flex;
+            justify-content: flex-end; /* Tous les messages alignés à droite */
+            margin-bottom: 15px;
+        }
+
+        .message p {
+            margin: 0;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .message-user {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .message-bot {
+            color: #555;
+        }
+
+        /* Séparateur pour chaque message */
+        .divider {
+            height: 1px;
+            background-color: #ddd;
+            margin: 10px 0;
+        }
+
+        /* Bouton retour */
+        .btn-back {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg">
+        <a class="navbar-brand" href="#">Mon Application</a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Accueil</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Historique</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Déconnexion</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Conteneur principal -->
+    <div class="container">
+        <h1>Détails de la session</h1>
+        <p class="session-info">Date : {{ session.date|date:"d/m/Y H:i" }}</p>
+
+        <!-- Affichage des messages -->
+        <div>
+            {% for message in messages %}
+                <!-- Affichage des messages utilisateur -->
+                <div class="message">
+                    <div>
+                        <p class="message-user">Vous ({{ message.timestamp|date:"H:i" }}) :</p>
+                        <p>{{ message.message_utilisateur }}</p>
+                    </div>
+                </div>
+                <!-- Séparateur -->
+                <div class="divider"></div>
+                <!-- Affichage des messages chatbot -->
+                <div class="message">
+                    <div>
+                        <p class="message-bot">Chatbot ({{ message.timestamp|date:"H:i" }}) :</p>
+                        <p>{{ message.message_chatbot }}</p>
+                    </div>
+                </div>
+                <!-- Séparateur -->
+                <div class="divider"></div>
+            {% endfor %}
+        </div>
+
+        <!-- Bouton retour -->
+        <div class="btn-back">
+            <a href="{% url 'afficher_historique' %}" class="btn btn-secondary">Retour à l'historique</a>
+        </div>
+    </div>
+</body>
+</html>

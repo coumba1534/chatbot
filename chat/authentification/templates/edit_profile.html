@@ -1,0 +1,79 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Édition du Profil</title>
+    <link rel="stylesheet" href="{% static 'css/edit_profile.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+</head>
+<body>
+    {% if messages %}
+    <div class="messages" id="messages">
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    <!-- Header -->
+    <header class="header">
+        <h1>Édition du Profil</h1>
+        <img src="avatar.png" alt="Avatar" class="avatar" id="avatar"> 
+        <!-- Avatar avec fonction pour afficher un menu -->
+    </header>
+
+    <!-- Menu utilisateur (affiché au clic sur l'avatar) -->
+    <div id="profile-menu" class="profile-menu">
+        <ul>
+            <li><a href="#">Mon Profil</a></li>
+            <li><a href="#">Se Déconnecter</a></li>
+        </ul>
+    </div>
+           <!-- Bouton retour à l'interface de chat -->
+           <button onclick="window.location.href='/chatbot/';" class="back-to-chat-btn">Retour</button>
+
+           <main class="profile-container">
+            <section class="personal-info">
+                <h2>Informations Personnelles</h2>
+                <form method="post" >
+                    {% csrf_token %}
+                    {{ profile_form.as_p }}
+                    <button type="submit" name="update_profile">Modifier</button>
+                </form>
+            </section>
+        
+            <section class="password-section">
+                <h2>Mot de passe</h2>
+                <form method="post">
+                    {% csrf_token %}
+                    {{ password_form.as_p }}
+                    <button type="submit" name="change_password">Changer le mot de passe</button>
+                </form>
+            </section>
+        </main>
+
+    <script >
+  document.addEventListener('DOMContentLoaded', function () {
+    const avatar = document.getElementById('avatar');
+    const profileMenu = document.getElementById('profile-menu');
+
+    // Affiche ou masque le menu au clic sur l'avatar
+    avatar.addEventListener('click', function () {
+        profileMenu.classList.toggle('show');
+    });
+
+    // Masquer le menu si l'utilisateur clique en dehors
+    document.addEventListener('click', function (event) {
+        if (!avatar.contains(event.target) && !profileMenu.contains(event.target)) {
+            profileMenu.classList.remove('show');
+        }
+    });
+});
+    </script>
+</body>
+</html>

@@ -1,0 +1,153 @@
+
+/* Appliquer la police Inter à toute la page */
+body {
+    font-family: 'Inter', sans-serif;
+}/* Style de l'en-tête */
+.header {
+    display: flex;
+    justify-content: space-between; /* Espacement entre le titre et l'avatar */
+    align-items: center; /* Alignement vertical */
+    background-color: #3268a8; /* Couleur du header */
+    color: white;
+    padding: 10px 20px;
+    position: relative; /* Permet de positionner le menu */
+}
+
+h1 {
+    margin: 0;
+    font-size: 20px; /* Taille du titre */
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #000; /* Placeholder pour avatar */
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+
+/* Effet au survol de l'avatar */
+.avatar:hover {
+    opacity: 0.8;
+}
+
+/* Menu utilisateur (s'affiche lorsque l'avatar est cliqué) */
+.profile-menu {
+    display: none; /* Masqué par défaut */
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 150px;
+}
+
+.profile-menu ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.profile-menu ul li {
+    padding: 10px;
+    text-align: center;
+}
+
+.profile-menu ul li a {
+    text-decoration: none;
+    color: #0d0d0e;
+}
+
+.profile-menu ul li:hover {
+    background-color: #f4f4f8;
+}
+
+/* Afficher le menu lorsque l'avatar est cliqué */
+.profile-menu.show {
+    display: block;
+}
+
+/* Conteneur du profil */
+.profile-container {
+    padding: 20px;
+    width: 80%;
+    max-width: 900px;
+    margin: 0 auto; /* Centrer le conteneur */
+}
+
+/* Sections de formulaire */
+.personal-info, .password-section {
+    background-color: #f4f4f8;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+form label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+form input {
+    width: 80%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+form button {
+    width: 20%; /* Garder le bouton aligné avec les inputs */
+    background-color: #3268a8;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: auto; /* Cette propriété garantit que le bouton sera poussé vers le bas */
+
+}
+/* Bouton "Retour au Chat" */
+/* Bouton "Retour au Chat" en bas à droite */
+.back-to-chat-btn {
+    background-color: #3268a8;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    position: fixed; /* Position fixe */
+    bottom: 20px; /* 20px depuis le bas de la page */
+    right: 20px; /* 20px depuis le bord droit de la page */
+    display: inline-block;
+    text-align: center;
+}
+
+.back-to-chat-btn:hover {
+    background-color: #295d91;
+}
+
+.messages {
+    margin: 20px;
+    padding: 15px;
+    background-color: #f4f4f4;
+    border-radius: 5px;
+}
+
+.alert {
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.alert-error {
+    background-color: #f8d7da;
+    color: #721c24;
+}

@@ -4,95 +4,73 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
 from dotenv import load_dotenv
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from chatbot.models import SessionChat, MessageChat
 
-# Chargement des variables d'environnement pour recuperer la cle
-# load_dotenv()
-# api_key = os.getenv("GEMINI_API_KEY")
-# if not api_key:
-#     print("Erreur : GEMINI_API_KEY est manquant dans le fichier .env")
-# else:
-#     print("Clé API trouvée :", api_key)
+import logging
+logger = logging.getLogger(__name__)
 
-# # Configuration du modele de chatbot
-# try:
-#     genai.configure(api_key=api_key)
-#     model = genai.GenerativeModel(
-#         model_name="gemini-1.5-flash",
-#         generation_config={
-#             "temperature": 1,
-#             "top_p": 0.95,
-#             "top_k": 64,
-#             "max_output_tokens": 8192,
-#             "response_mime_type": "text/plain",
-#         },
-#         system_instruction="Tu es un chatbot spécialisé dans l’orientation universitaire et professionnelle pour les jeunes maliens..."
-#     )
-#     # Initialisation d'une session de chat pour maintenir le contexte
-#     chat_session = model.start_chat()
-#     print("Session de chat initialisee avec succes")
-# except Exception as e:# Permet de vérifier plus tard si l'initialisation a echoue
-#     print("Erreur d'initialisation du modele ou de la session :", e)
+# Vue de redirection générale pour la racine
+def chatbot_view(request):
+    logger.info(f"User authenticated: {request.user.is_authenticated}")
+    if request.user.is_authenticated:
+        logger.info("Redirection vers la page utilisateur connecté.")
+        return redirect('chatbot_authenticated')  # Redirection si l'utilisateur est connecté
+    logger.info("Redirection vers la page anonyme.")
+    return redirect('chatbot_anonymous')  # Redirection si l'utilisateur n'est pas connecté
 
-
-
-# Vue pour la page du chatbot
+# Vue pour la page utilisateur connecté
+@login_required
 def chatbot_page(request):
-    return render(request, 'chatbot.html')
+    logger.info(f"Accès à la page utilisateur connecté pour {request.user.username}")
+    return render(request, 'chatbot.html')  # Affiche la page pour les utilisateurs connectés
 
+# Vue pour la page anonyme
+def chatbot_anonymous(request):
+    logger.info("Accès à la page anonyme.")
+    return render(request, 'chatbot1.html')  # Affiche la page pour les utilisateurs non connectés
 
+@login_required
+def afficher_historique(request):
+    """
+    Affiche toutes les sessions de chat avec un résumé.
+    """
+    # Récupérer toutes les sessions de l'utilisateur
+    sessions = SessionChat.objects.filter(utilisateur=request.user).order_by("-date_debut")
 
-# # Vue pour gerer les requetes de l'API
-# @csrf_exempt
-# def chatbot_view(request):
-#     print("Méthode de requete :", request.method)
-#     if request.method == "POST":
-#         try:
-#             print("Début de la requete POST reçue")
-#             # Chargement du corps de la requete JSON
-#             data = json.loads(request.body)
-#             user_input = data.get("message", "")
+    # Préparer un résumé pour chaque session
+    historique = []
+    for session in sessions:
+        # Récupérer le premier message de la session pour le titre
+        premier_message = MessageChat.objects.filter(session_chat=session).order_by("date_message").first()
+        titre = premier_message.message_utilisateur[:50] + "..." if premier_message else "Session sans titre"
 
-#             # Verification si le message est vide
-#             if not user_input:
-#                 print("Message vide reçu")
-#                 return JsonResponse({"error": "Message vide"}, status=400)
+        historique.append({
+            "id": session.id,
+            "titre": titre,
+            "date": session.date_debut,
+        })
 
-#             print("Message utilisateur :", user_input)
+    return render(request, "historique.html", {"historique": historique})
 
-#             # Envoi du message utilisateur a l'API du modele
-#             response = chat_session.send_message(user_input)
-#             print("Reponse brute de l'API :", response)
+@login_required
+def afficher_detail_session(request, session_id):
+    """
+    Affiche les messages d'une session de chat.
+    """
+    try:
+        # Vérifier si la session appartient à l'utilisateur connecté
+        session = SessionChat.objects.get(id=session_id, utilisateur=request.user)
+        messages = MessageChat.objects.filter(session_chat=session).order_by("date_message")
+        
+        return render(request, "detail_session.html", {
+            "session": session,
+            "messages": messages,
+        })
+    except SessionChat.DoesNotExist:
+        return render(request, "404.html", status=404)
 
-#             # Verification que la reponse contient des candidats
-#             if hasattr(response, 'candidates') and isinstance(response.candidates, list) and len(response.candidates) > 0:
-#                 # Extraction du texte brut de la reponse
-#                 json_text = response.candidates[0].content.parts[0].text
-#                 message_response = json.loads(json_text)
-#                 # Tentative de decodage de la reponse en JSON
-#                 try:
-#                     message_response = json.loads(json_text)  #
-#                     print("Reponse decodee :", message_response)
-#                     return JsonResponse({"reply": message_response.get("message", "Aucune reponse disponible.")})
-#                 except json.JSONDecodeError:
-#                     # Gestion de l'erreur si la réponse n'est pas un JSON valide
-#                     print("Erreur de decodage JSON dans la reponse :", json_text)
-#                     return JsonResponse({"error": "Erreur de decodage de la reponse du chatbot"}, status=500)
-#             else:
-#                 # Gestion du cas ou aucune reponse n'est reçue du modele
-#                 return JsonResponse({"error": "Aucune reponse du chatbot"}, status=500)
-
-#         except json.JSONDecodeError:
-#             # Gestion des erreurs si la requete reçue n'est pas un JSON valide
-#             print("Erreur de decodage JSON dans la requete")
-#             return JsonResponse({"error": "Requete JSON invalide"}, status=400)
-#         except Exception as e:
-#             # Gestion de toute autre exception inattendue
-#             print(f"Erreur lors du traitement de la requete : {str(e)}")
-#             return JsonResponse({"error": str(e)}, status=500)
-
-#     # Gestion des requetes non-POST avec un message d'erreur
-#     return JsonResponse({"error": "Invalid request"}, status=400)
 
 
 

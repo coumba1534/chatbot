@@ -1,5 +1,69 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot</title>
+    <link rel="stylesheet" href="{% static 'css/chatbot.css' %}">
+</head>
+<body>
+   
+
+    <!-- Menu latéral -->
+    <div id="side-panel" class="side-panel">
+        <button class="new-chat-btn">+ Nouvelle discussion</button>
+        <ul>
+            <li><a href="{% url 'afficher_historique' %}">Consulter historique</a></li>
+            <li>Paramètres</li>
+        </ul>
+    </div>
+    
+    <div id="menu" class="menu">
+        <div class="menu-icon" onclick="toggleSidePanel()">&#9776;</div>
+    </div>
+
+    <!-- En-tête -->
+    <header class="header">
+        <h1>Chatbot</h1>
+        <img src="{% static 'img/avatar.png' %}" alt="Avatar" class="avatar" id="avatar">
+    </header>
+
+    <!-- Menu utilisateur (affiché au clic sur l'avatar) -->
+    <div id="profile-menu" class="profile-menu">
+        <ul>
+            <li><a href="{% url 'edit_profile' %}">Mon Profil</a></li>
+            <li><a href="#">Se Déconnecter</a></li>
+        </ul>
+    </div>
+    
+    <div id="main-content" class="main-content">
+        <!-- Zone de messages -->
+        <div id="chat-box" class="chat-box">
+            <!-- Messages générés dynamiquement ici -->
+        </div>
+
+        <!-- Champ de saisie et bouton -->
+        <div class="input-container">
+            <input type="text" id="user-input" placeholder="Posez-moi une question...">
+            <button id="send-btn" onclick="sendMessage()">&#8593;</button>
+        </div>
+    </div>    
+
+    <script src="{% static 'js/chatbot.js' %}"></script>
+    <script src="/static/js/menu.js" defer></script>
+    
+</body>
+</html>
 
 
+
+
+
+
+
+<!-- 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,85 +95,13 @@
         }
     </script>
 </body>
-</html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- chatbot.html
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>Chatbot</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-</head>
-<body>
-    <h1>Chatbot d'Orientation</h1>
-    <div id="chatbox">
-        <div id="conversation"></div>
-        <input type="text" id="userInput" placeholder="Posez une question...">
-        <button onclick="sendMessage()">Envoyer</button>
-    </div>
-
-    <script>
-        function getCookie(name) {
-        let cookieValue = null;
-        if (document.cookie && document.cookie !== '') {
-            const cookies = document.cookie.split(';');
-            for (let i = 0; i < cookies.length; i++) {
-                const cookie = cookies[i].trim();
-                // Vérifiez si ce cookie commence par le nom donné
-                if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                }
-            }
-        }
-        return cookieValue;
-    }
-
-    const csrftoken = getCookie('csrftoken');
-
-        function sendMessage() {
-            const message = $("#userInput").val();
-            $("#conversation").append(`<p><strong>Vous :</strong> ${message}</p>`);
-            $("#userInput").val("");
-
-            $.ajax({
-                type: "POST",
-                url: "http://localhost:8000/chatbot/api",  // Assurez-vous que l'URL correspond à celle définie dans urls.py
-                data: JSON.stringify({ "message": message }),
-                contentType: "application/json",
-                beforeSend: function(xhr) {
-                    xhr.setRequestHeader("X-CSRFToken", csrftoken); // Assurez-vous d'ajouter le token CSRF
-                },
-                success: function (response) {
-                    console.log("Réponse du serveur :", response); 
-                    $("#conversation").append(`<p><strong>Chatbot :</strong> ${response.reply}</p>`);
-                },
-                error: function (xhr, status, error) {
-                    console.error("Erreur AJAX :", status, error);
-                    console.error('Status:', status);
-                    console.error('Response:', xhr.responseText);
-                    alert("Erreur lors de la communication avec le chatbot.");
-                }
-            });
-        }
-    </script>
-</body>
 </html> -->
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,140 @@
+/* Style général */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f1f4f9; /* Fond général */
+}
+
+/* En-tête */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #3268a8; /* Couleur de l'en-tête */
+    color: white;
+    padding: 10px 20px;
+}
+
+h1 {
+    margin: 0;
+    font-size: 20px;
+}
+
+/* Conteneur des boutons d'authentification */
+.auth-options {
+    display: flex;
+    gap: 10px; /* Espace entre les boutons */
+    align-items: center; /* Centre les boutons verticalement */
+    justify-content: flex-end; /* Aligne les boutons à droite */
+}
+
+/* Boutons d'authentification */
+.auth-btn {
+    border: none;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    white-space: nowrap; /* Empêche le texte de passer à la ligne */
+}
+
+/* Bouton "Se connecter" */
+.auth-btn.primary {
+    background-color: #ffffff;
+    padding: 10px 20px;
+    color: #3268a8;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.auth-btn.primary:hover {
+    background-color: #f4f4f8;
+}
+
+/* Bouton "S'inscrire" */
+.auth-btn.secondary {
+    background-color: #f4f4f8;
+    padding: 10px 30px;
+    color: #3268a8;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.auth-btn.secondary:hover {
+    background-color: #e2e2e2;
+}
+
+/* Zone de messages */
+.chat-box {
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 10px;
+    background-color: white;
+    border-radius: 10px;
+    height: 400px;
+    overflow-y: auto;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.message {
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 10px;
+    max-width: 50%;
+    line-height: 1.5;
+}
+
+.bot-message {
+    background-color: #e6e6e6; /* Fond des messages du bot */
+    text-align: left;
+}
+
+.user-message {
+    background-color: #3268a8; /* Fond des messages de l'utilisateur */
+    color: white;
+    text-align: right;
+    margin-left: auto;
+}
+
+/* Champ de saisie */
+.input-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    background-color: white;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+}
+
+input[type="text"] {
+    width: 60%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    font-size: 16px;
+    outline: none;
+}
+
+input[type="text"]::placeholder {
+    color: #999;
+}
+
+/* Bouton d'envoi */
+button.send-btn {
+    width: 40px;
+    height: 40px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 50%;
+    background-color: #3268a8; /* Couleur du bouton */
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+}
+
+button.send-btn:hover {
+    background-color: #295d91;
+}

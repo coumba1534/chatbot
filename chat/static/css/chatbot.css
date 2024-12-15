@@ -1,0 +1,228 @@
+/* Style général */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f1f4f9; /* Fond général */
+}
+
+/* En-tête */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #3268a8; /* Couleur de l'en-tête */
+    color: white;
+    padding: 10px 20px;
+}
+
+h1 {
+    margin: 0;
+    font-size: 20px;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #000; /* Placeholder pour avatar */
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+
+/* Effet au survol de l'avatar */
+.avatar:hover {
+    opacity: 0.8;
+}
+
+/* Menu utilisateur (s'affiche lorsque l'avatar est cliqué) */
+.profile-menu {
+    display: none; /* Masqué par défaut */
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 150px;
+}
+
+.profile-menu ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.profile-menu ul li {
+    padding: 10px;
+    text-align: center;
+}
+
+.profile-menu ul li a {
+    text-decoration: none;
+    color: #3268a8;
+}
+
+.profile-menu ul li:hover {
+    background-color: #f4f4f8;
+}
+
+/* Afficher le menu lorsque l'avatar est cliqué */
+.profile-menu.show {
+    display: block;
+}
+
+/* Conteneur du profil */
+.profile-container {
+    padding: 20px;
+    width: 80%;
+    max-width: 900px;
+    margin: 0 auto; /* Centrer le conteneur */
+}
+
+
+/* Menu latéral */
+.menu-icon {
+    font-size: 20px;
+    cursor: pointer;
+    color: white;
+}
+
+/* Sidebar par défaut (hors écran) */
+/* Sidebar ajustée */
+.side-panel {
+    position: fixed;
+    top: 60px; /* Aligne le haut de la sidebar avec le bas du header */
+    left: -200px; /* Sidebar partiellement visible */
+    width: 250px;
+    height: calc(100% - 50px); /* Ajuste la hauteur pour ne pas chevaucher le header */
+    background-color: #3268a8;
+    color: white;
+    padding: 10px;
+    transition: left 0.3s ease; /* Animation d'ouverture/fermeture */
+    z-index: 1000;
+    border-right: 2px solid #295d91; /* Bordure de séparation */
+}
+
+/* Lorsque la sidebar est ouverte */
+.side-panel.open {
+    left: 0; /* Affiche entièrement la sidebar */
+}
+
+/* Icône du menu (glissant avec la sidebar) */
+.menu-icon {
+    position: absolute;
+    top: 60px; /* Place l'icône juste sous le header */
+    left: 20px; /* Position par défaut */
+    background-color: #ECF3FA; /* Couleur identique à la sidebar */
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 30px;
+    font-size: 20px;
+    color: #295d91;
+    cursor: pointer;
+    z-index: 1001; /* Toujours visible au-dessus */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Léger effet d'ombre */
+    transition: left 0.3s ease; /* Animation pour glisser avec la sidebar */
+}
+
+/* Lorsque la sidebar est ouverte, déplace l'icône */
+.side-panel.open .menu-icon {
+    left: 230px; /* Déplace l'icône à droite (alignée avec le bord de la sidebar) */
+}
+
+
+
+
+.side-panel ul li:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+
+
+/* Zone de messages */
+.chat-box {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 10px;
+    background-color: white;
+    border-radius: 10px;
+    height: 400px;
+    overflow-y: auto;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.message {
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 10px;
+    max-width: 50%;
+    line-height: 1.5;
+}
+
+.bot-message {
+    background-color: #e6e6e6; /* Fond des messages du bot */
+    text-align: left;
+}
+
+.user-message {
+    background-color: #3268a8; /* Fond des messages de l'utilisateur */
+    color: white;
+    text-align: right;
+    margin-left: auto;
+}
+
+/* Champ de saisie */
+.input-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    background-color: white;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+}
+
+input[type="text"] {
+    width: 60%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    font-size: 16px;
+    outline: none;
+}
+
+input[type="text"]::placeholder {
+    color: #999;
+}
+
+button {
+    width: 40px;
+    height: 40px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 50%;
+    background-color: #3268a8; /* Couleur du bouton */
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+button:hover {
+    background-color: #295d91;
+}
+
+.main-content {
+    transition: margin-left 0.3s ease; /* Animation de déplacement */
+    margin-left: 0; /* Position par défaut */
+}
+
+.main-content.shifted {
+    margin-left: 250px; /* Décalage égal à la largeur de la sidebar */
+}
+

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Mon Site{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <header>
+        <nav> 
+            <ul>
+                <li><a href="#login">Connexion</a></li> 
+                <li><a href="#get-started" class="btn">Commencer</a></li> 
+            </ul> 
+        </nav> 
+    </header>
+
+    <main>
+        {% block content %}
+        
+        {% endblock %}
+    </main>
+
+    <footer>
+        <!-- Pied de page commun -->
+        <p>&copy; 2024 Mon Site. Tous droits réservés.</p>
+    </footer>
+
+    <script src="{% static 'js/base.js' %}"></script>
+    {% block extra_js %}
+    {% endblock %}
+</body>
+</html>
